@@ -1,8 +1,9 @@
 /*global Router*/
 
 Router.configure({
-    layoutTemplate: 'layout'
+
+layoutTemplate: 'layout'
 
 });
 
-Router.route('/',{name:'postsList'});
+Router.route('/', {name: 'postsList'});
