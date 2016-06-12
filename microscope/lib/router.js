@@ -2,7 +2,9 @@
 
 Router.configure({
 
-layoutTemplate: 'layout'
+layoutTemplate: 'layout',
+loadindTemplate : 'loading',
+waitOn: function() {return Meteor.subscribe('posts');}
 
 });
 
