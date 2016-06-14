@@ -9,17 +9,18 @@ Template.postSubmit.events({
         
         
  
-    Meteor.call('postInsert', post, function(error, result){
-        //display the error to the user and abort
-        if(error)
-            return alert(error.reason);
-        
-        if(result.postExists)
-            alert('This link has already been posted');
+        Meteor.call('postInsert', post, function(error, result){
+            //display the error to the user and abort
+            if(error)
+                return throwError(error.reason);
             
-        
-        Router.go('postPage',{_id:result._id});
-    }) ;
+            //show this result butroute anyway
+            if(result.postExists)
+                throwError('This link has already been posted');
+                
+            
+            Router.go('postPage',{_id:result._id});
+        }) ;
     }
     
 });
