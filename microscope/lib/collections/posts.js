@@ -1,7 +1,7 @@
 /*global Posts*/
 Posts = new Mongo.Collection('posts');
 
-Posts.allow({
+/*Posts.allow({
     update: function(userId,post){return ownsDocument(userId,post);},
     remove: function(userId,post){return ownsDocument(userId,post);},
 });
@@ -12,6 +12,39 @@ Posts.deny({
         return(_.without(fieldNames,'url','title').length>0);
     }
 });
+*/
+
+Meteor.methods({
+    postUpdate: function(postAttributes,currentPostId) {
+        check(Meteor.userId(), String);
+        check(postAttributes, {
+            title: String,
+            url: String
+        });
+        check(currentPostId, String);
+       
+        
+        console.log('The current post id is ' + currentPostId);
+        
+        
+        var postWithSameLink = Posts.findOne({url:postAttributes.url});
+        if(postWithSameLink){
+            return{
+                postExists :true,
+                _id: postWithSameLink._id
+            }
+        }
+        
+        
+   Posts.update(currentPostId,{$set:postAttributes});
+   
+        return {
+            _id: currentPostId
+        };
+    }
+});
+
+
 
 
 
