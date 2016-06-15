@@ -5,7 +5,7 @@ Router.configure({
     loadindTemplate : 'loading',
     notFoundTemplate : 'notFound',
     waitOn: function() {
-        return Meteor.subscribe('posts');
+        return [Meteor.subscribe('posts'), Meteor.subscribe('notifications')];
     }
 });
 
